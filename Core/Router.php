@@ -29,20 +29,20 @@ class Router {
 				{
 					require_once 'src/Controller/'.$controller.'.php';
 
-					if($action != null){
-						if(in_array($action, $this->route[$controller])){
+					$response['controller'] = $controller;
+
+					if($action != null && in_array($action, $this->route[$controller])){
+							$response['action'] = $action;
+							$response['param'] = $param;
 							$controller = new $controller;
-							$response = $controller->$action($param);
+							$response['result'] = $controller->$action($param);
 							return $response;
-						}else{
-							$param = $action;
-							$controller = new $controller;
-							$response = $controller->index($param);
-							return $response;
-						}
+
 					}else{
+						$response['action'] = 'index';
+						$response['param'] = $action;
 						$controller = new $controller;
-						$response = $controller->index();
+						$response['result'] = $controller->index();
 						return $response;
 					}
 				}else
@@ -51,8 +51,11 @@ class Router {
 				}
 			}else{
 				require_once 'src/Controller/Home.php';
-				$controller = new Home;
-				$response = $controller->index();
+				$controller = "Home";
+				$response['controller'] = $controller;
+				$response['action'] = 'index';
+				$controller = new $controller;
+				$response['result'] = $controller->index();
 				return $response;
 
 			}
