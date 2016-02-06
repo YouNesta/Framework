@@ -6,7 +6,7 @@
  * Time: 18:30
  */
 require_once 'vendor/autoload.php';
-use src\Controller\Router;
+use Core\Router;
 
 $routeur = new Router;
 
