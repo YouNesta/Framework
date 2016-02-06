@@ -1,0 +1,13 @@
+{
+    "name": "root/framework",
+    "description": "Framework for final test in LAMP - SUPINTERNET",
+    "require": {
+        "doctrine/orm": "^2.5"
+    },
+    "authors": [
+        {
+            "name": "younesboulkaddid",
+            "email": "boulkaddid.younes@gmail.com"
+        }
+    ]
+}
