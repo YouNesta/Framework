@@ -11,8 +11,8 @@ namespace Core;
 class Router {
 
 	private $route = [
-		"lol" => [
-			"test", "close"
+		"User" => [
+			"login", "close"
 		]
 	];
 
@@ -33,7 +33,11 @@ class Router {
 						if(in_array($action, $this->route[$controller])){
 							$controller = new $controller;
 							$response = $controller->$action($param);
-
+							return $response;
+						}else{
+							$param = $action;
+							$controller = new $controller;
+							$response = $controller->index($param);
 							return $response;
 						}
 					}else{
