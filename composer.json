@@ -2,8 +2,7 @@
     "name": "root/framework",
     "description": "Framework for final test in LAMP - SUPINTERNET",
     "require": {
-        "twig/twig": "^1.24",
-        "doctrine/orm": "^2.5"
+        "twig/twig": "^1.24"
     },
     "autoload": {
         "psr-4" : {"src\\" : "src",
