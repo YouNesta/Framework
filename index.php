@@ -10,21 +10,21 @@ use Core\Router;
 
 $routeur = new Router;
 
-
 Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem('src/View');
 $twig = new Twig_Environment($loader);
-
-
-$result =  $routeur->start($_GET['url']);
 $header = $twig->loadTemplate('defaut/header.twig');
+
 $footer = $twig->loadTemplate('defaut/footer.twig');
 
-$template = $twig->loadTemplate($result['controller'].'/'.$result['action'].'.twig');
+$result =  $routeur->start($_GET['url']);
+
+
+
 
 
 echo $header->render(array());
-echo $template->render($result);
+echo $result["template"]->render($result);
 echo $footer->render(array());
 
 
