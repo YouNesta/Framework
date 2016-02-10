@@ -14,15 +14,12 @@ class Router {
 	private $route = [
 		"User" => [
 			"login", "close"
-		],
-		"Jules" => [
-			"ouvrirSesFesses", "close"
 		]
 	];
 
 	public function start($url){
 
-
+		Logs::access("Connection to url ".$url);
 		\Twig_Autoloader::register();
 		$loader = new \Twig_Loader_Filesystem('src/View');
 		$twig = new \Twig_Environment($loader);
@@ -66,14 +63,23 @@ class Router {
 					}
 				}else
 				{
-					throw new \Exception('No Controller '.$controller.' found');
+					Logs::error("No controller ".$controller.' Found');
+					$controller = "Home";
+					$response['controller'] = $controller;
+					$response['action'] = 'index';
+					$namespace = "\\App\\Controller\\".$controller;
+					$controller = new $namespace;
+					$response['result'] = $controller->index();
+
+					$response["template"] = $twig->loadTemplate('Home/index.twig');
+					return $response;
 				}
 			}else{
-				require_once 'src/Controller/Home.php';
 				$controller = "Home";
 				$response['controller'] = $controller;
 				$response['action'] = 'index';
-				$controller = new $controller;
+				$namespace = "\\App\\Controller\\".$controller;
+				$controller = new $namespace;
 				$response['result'] = $controller->index();
 
 				$response["template"] = $twig->loadTemplate('Home/index.twig');
